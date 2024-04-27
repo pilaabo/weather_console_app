@@ -11,13 +11,20 @@ class WeatherApiClient {
     print(url);
     final response = await http.get(Uri.parse(url));
     if (response.statusCode != 200) {
-      print('Request failed with status ${response.statusCode}');
+      throw WeatherApiException(
+          'Request failed with status ${response.statusCode}');
     }
     final Map<String, dynamic> jsonResponse =
         Map.castFrom(jsonDecode(response.body));
     if (jsonResponse.isEmpty) {
-      print('Weather data for $cityName not found');
+      throw WeatherApiException('Weather data for $cityName not found');
     }
     return Weather.fromJson(jsonResponse);
   }
+}
+
+class WeatherApiException implements Exception {
+  final String message;
+
+  const WeatherApiException(this.message);
 }

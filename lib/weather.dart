@@ -23,4 +23,13 @@ class Weather {
       condition: currentData['condition']['text'],
     );
   }
+
+  @override
+  String toString() => '''
+    Last updated: $lastUpdated
+    Temperature: $tempC°C
+    Feels like: $feelsLikeC°C
+    City: $cityName
+    Condition: $condition
+  ''';
 }
